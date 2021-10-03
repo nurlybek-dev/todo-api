@@ -10,12 +10,22 @@ services:
       - 8000:8000
     depends_on:
       - db
+  celery:
+    build: .
+    command: celery --app=config worker -B --loglevel=info
+    volumes:
+      - .:/code
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
   db:
     image: postgres
     volumes: 
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_PASSWORD=postgres
+  redis:
+    image: redis
 
 volumes: 
     postgres_data:
