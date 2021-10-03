@@ -2,12 +2,13 @@ import pytest
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.management import call_command
+from .models import Task
 
 
 @pytest.fixture(scope='session')
 def django_db_setup(django_db_setup, django_db_blocker):
-   with django_db_blocker.unblock():
-       call_command('loaddata', 'fixture.json')
+    with django_db_blocker.unblock():
+        call_command('loaddata', 'fixture.json')
 
 
 @pytest.fixture
@@ -179,3 +180,12 @@ def test_task_delete(user, task, status_code, get_authorized_client):
     url = reverse('task-detail', kwargs={'pk': task})
     response = client.delete(url)
     assert response.status_code == status_code
+
+
+@pytest.mark.django_db
+def test_send_email(mailoutbox):
+    task = Task.objects.get(pk=3)
+    task.notify_deadline()
+    assert len(mailoutbox) == 1
+    mail = mailoutbox[0]
+    assert mail.subject == f'Deadline notification for task "{task.title}"'
