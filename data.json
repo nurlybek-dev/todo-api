@@ -1,0 +1,42 @@
+[
+    {
+        "model": "auth.group",
+        "pk": 1,
+        "fields": {
+            "name": "admin"
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 2,
+        "fields": {
+            "name": "employee"
+        }
+    },
+    {
+        "model": "auth.User",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$150000$5M5wVtM7K5oP$fh4MyfAB8AbTDWOMcHZ0EFWcFhyJqRK8o2BvZb+rQI8=",
+            "is_superuser": true,
+            "username": "admin",
+            "email": "admin@email.com",
+            "is_staff": true,
+            "is_active": true,
+            "groups": [1]
+        }
+    },
+    {
+        "model": "auth.User",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$jUgswkvhQaTez3N1A8roFb$9vc5K1KL9Db12ITX6O5VCQgm5SB0GX3+9dQtezvu2n0=",
+            "is_superuser": false,
+            "username": "employee",
+            "email": "employee@email.com",
+            "is_staff": false,
+            "is_active": true,
+            "groups": [2]
+        }
+    }
+]
