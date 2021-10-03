@@ -27,6 +27,16 @@ groups: employee
 ```
 
 # Использование
+Токен доступен по роуту
+```
+/api-token-auth/ - POST
+{
+  "username": "username",
+  "password": "password"
+}
+```
+
+
 Использовался ModelViewSet, так что все роуты доступны по префиксу __/tasks/__
 ```
 /tasks/ - GET
